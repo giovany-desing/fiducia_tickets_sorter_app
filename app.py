@@ -577,7 +577,7 @@ with tab1:
     st.markdown("""
     <div class="hero-section">
         <div class="hero-cta">
-            <a href="https://github.com/giovany-desing/predecir-puntaje-icfes-final" target="_blank" class="apple-button">
+            <a href="https://github.com/giovany-desing/Proyecto_tickets_fiduciaria" target="_blank" class="apple-button">
                 Ver Código en GitHub
             </a>
         </div>
