@@ -759,7 +759,7 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
 "🔢 Pipeline clasificación",
 "🔄 Monitoreo con Apache Airflow",
 "🎯 Endpoints",
-"📁 Distribución de archivos del proyecto"
+"💻 Ver software"
 ])
 
 # ============================================================================
@@ -2204,7 +2204,7 @@ with tab5:
 # TAB 6: DISTRIBUCIÓN DE ARCHIVOS DEL PROYECTO
 # ============================================================================
 with tab6:
-    st.markdown("<h2 style='color: black;'>📁 Distribución de Archivos del Proyecto</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: black;'>💻 Ver software</h2>", unsafe_allow_html=True)
     
     # Botón para ver repositorio en GitHub
     st.markdown("""
