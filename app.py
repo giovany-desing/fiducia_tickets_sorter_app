@@ -547,6 +547,178 @@ st.markdown("""
         flex: 1;
         min-width: 150px;
     }
+    
+    /* ========== ROAD PIPELINE (Carretera sinuosa) ========== */
+    .road-pipeline {
+        position: relative;
+        padding: 4rem 2rem;
+        margin: 2rem 0;
+        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        border-radius: 20px;
+        min-height: 2000px;
+    }
+    
+    .road-pipeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 8px;
+        background: linear-gradient(to bottom, #475569, #64748b, #475569);
+        border-radius: 4px;
+        transform: translateX(-50%);
+        z-index: 0;
+        box-shadow: 0 0 20px rgba(71, 85, 105, 0.3);
+    }
+    
+    .road-pipeline::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 8px;
+        background: repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 15px,
+            #cbd5e1 15px,
+            #cbd5e1 25px
+        );
+        transform: translateX(-50%);
+        z-index: 1;
+        pointer-events: none;
+    }
+    
+    .road-step {
+        position: relative;
+        z-index: 2;
+        margin: 3rem 0;
+        display: flex;
+        align-items: center;
+        min-height: 120px;
+    }
+    
+    .road-step:nth-child(odd) {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding-right: 50%;
+    }
+    
+    .road-step:nth-child(even) {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        padding-left: 50%;
+    }
+    
+    .road-step-number {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: white;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 0 0 4px rgba(255, 255, 255, 0.8);
+        margin: 0 2rem;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 3;
+        border: 3px solid white;
+    }
+    
+    .road-step:nth-child(1) .road-step-number { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
+    .road-step:nth-child(2) .road-step-number { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+    .road-step:nth-child(3) .road-step-number { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+    .road-step:nth-child(4) .road-step-number { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+    .road-step:nth-child(5) .road-step-number { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+    .road-step:nth-child(6) .road-step-number { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    .road-step:nth-child(7) .road-step-number { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); }
+    .road-step:nth-child(8) .road-step-number { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); }
+    .road-step:nth-child(9) .road-step-number { background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); }
+    .road-step:nth-child(10) .road-step-number { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); }
+    .road-step:nth-child(11) .road-step-number { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
+    .road-step:nth-child(12) .road-step-number { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+    .road-step:nth-child(13) .road-step-number { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+    .road-step:nth-child(14) .road-step-number { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+    .road-step:nth-child(15) .road-step-number { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+    .road-step:nth-child(16) .road-step-number { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    .road-step:nth-child(17) .road-step-number { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); }
+    .road-step:nth-child(18) .road-step-number { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); }
+    .road-step:nth-child(19) .road-step-number { background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); }
+    .road-step:nth-child(20) .road-step-number { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); }
+    
+    .road-step-box {
+        flex: 1;
+        max-width: 500px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 2px solid #334155;
+        border-left: 5px solid #1e40af;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 16px rgba(30, 41, 59, 0.12);
+        transition: all 0.3s ease;
+    }
+    
+    .road-step-box:hover {
+        transform: translateY(-4px) translateX(5px);
+        box-shadow: 0 8px 24px rgba(30, 41, 59, 0.18);
+        border-left-color: #2563eb;
+    }
+    
+    .road-step-header {
+        color: #1e293b;
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .road-step-content {
+        color: #475569;
+        line-height: 1.7;
+        font-size: 0.9rem;
+    }
+    
+    .road-step-content ul {
+        margin: 0.5rem 0;
+        padding-left: 1.25rem;
+    }
+    
+    .road-step-content li {
+        margin: 0.4rem 0;
+        color: #64748b;
+    }
+    
+    .road-step-content code {
+        background: #f1f5f9;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'Fira Code', monospace;
+        color: #1e40af;
+        font-size: 0.85rem;
+    }
+    
+    @media (max-width: 768px) {
+        .road-step {
+            flex-direction: column !important;
+            padding: 0 !important;
+        }
+        
+        .road-step-number {
+            margin: 1rem 0;
+        }
+        
+        .road-pipeline::before,
+        .road-pipeline::after {
+            display: none;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -1006,240 +1178,247 @@ with tab2:
     st.markdown("<h2 style='color: black;'>🔄 Pipeline de Entrenamiento Completo</h2>", unsafe_allow_html=True)
     
     st.markdown("""
-<div class="vertical-pipeline">
-<!-- FASE 1: Preparación del Entorno -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">⚙️ FASE 1: Preparación del Entorno</div>
-<div class="pipeline-step-content">
-<p><strong>1. GitHub Actions Trigger</strong></p>
+<div class="road-pipeline">
+<div class="road-step">
+<div class="road-step-number">01</div>
+<div class="road-step-box">
+<div class="road-step-header">🚨 GitHub Actions Trigger</div>
+<div class="road-step-content">
+<p>Push a main con cambios en <code>data/scripts</code></p>
 <ul>
-<li>Detecta: git push a main</li>
-<li>Verifica: cambios en data-tickets-train/** o scripts/**</li>
-<li>Inicia: Runner Ubuntu-latest</li>
-</ul>
-
-<p><strong>2. Setup Inicial</strong></p>
-<div class="pipeline-substeps">
-<div class="pipeline-substep"><strong>Checkout código</strong><br/><small>actions/checkout@v3</small></div>
-<div class="pipeline-substep"><strong>Setup Python 3.9</strong><br/><small>actions/setup-python@v4</small></div>
-<div class="pipeline-substep"><strong>Cache pip</strong><br/><small>dependencies</small></div>
-<div class="pipeline-substep"><strong>Install</strong><br/><small>requirements.txt (189 paquetes)</small></div>
-</div>
-
-<p><strong>3. NLTK Resources Download</strong></p>
-<ul>
-<li>punkt (tokenizador)</li>
-<li>stopwords (español)</li>
-<li>wordnet (lematización)</li>
-<li>omw-1.4 (Open Multilingual Wordnet)</li>
-</ul>
-
-<p><strong>4. DVC Configuration</strong></p>
-<ul>
-<li>Configure AWS credentials: <code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>AWS_DEFAULT_REGION</code></li>
-<li>DVC remote: <code>s3://tu-bucket/path</code></li>
-<li>DVC pull <code>dataset_tickets.csv</code> desde S3</li>
+<li>Detecta cambios en <code>data-tickets-train/**</code> o <code>scripts/**</code></li>
+<li>Inicia Runner Ubuntu-latest</li>
 </ul>
 </div>
 </div>
+</div>
 
-<div class="pipeline-arrow-down">▼</div>
-
-<!-- FASE 2: Carga y Preprocesamiento -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">📊 FASE 2: Carga y Preprocesamiento de Datos</div>
-<div class="pipeline-step-content">
-<p><strong>5. Load Dataset</strong></p>
+<div class="road-step">
+<div class="road-step-number">02</div>
+<div class="road-step-box">
+<div class="road-step-header">⚙️ Setup Inicial</div>
+<div class="road-step-content">
 <ul>
-<li>Lectura: <code>data-tickets-train/dataset_tickets.csv</code></li>
-<li>Validación: columnas requeridas <code>['texto', 'etiqueta']</code></li>
-<li>Shape: ~1,213 tickets × 2 columnas</li>
-<li>Distribución de clases:
+<li>Python 3.9 + 189 dependencias</li>
+<li>NLTK resources: <code>punkt</code>, <code>stopwords</code>, <code>wordnet</code></li>
+<li>Seeds: <code>random.seed(42)</code>, <code>np.random.seed(42)</code>, <code>PYTHONHASHSEED=42</code></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">03</div>
+<div class="road-step-box">
+<div class="road-step-header">🔐 AWS Config + DVC Pull Dataset</div>
+<div class="road-step-content">
+<p>Desde S3: <code>dataset_tickets.csv</code> versionado con MD5</p>
+<ul>
+<li>Configure AWS credentials</li>
+<li>DVC remote: <code>s3://bucket/path</code></li>
+<li>DVC pull dataset desde S3</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">04</div>
+<div class="road-step-box">
+<div class="road-step-header">📊 Load & Validate</div>
+<div class="road-step-content">
+<p><strong>1,213 tickets × 4 clases:</strong></p>
 <ul>
 <li>TI: ~300 tickets</li>
 <li>RRHH: ~300 tickets</li>
 <li>Finanzas: ~300 tickets</li>
-<li>Operaciones: ~313 tickets</li>
+<li>Ops: ~313 tickets</li>
 </ul>
-</li>
-</ul>
-
-<p><strong>6. NLP Preprocessing Pipeline</strong> (<code>utils/preprocessing_data.py</code>)</p>
-<p>Para CADA ticket:</p>
-<div class="pipeline-substeps">
-<div class="pipeline-substep"><strong>a) Tokenización</strong><br/><small>NLTK word_tokenize()</small></div>
-<div class="pipeline-substep"><strong>b) Lowercase</strong><br/><small>"Mi Computadora" → "mi computadora"</small></div>
-<div class="pipeline-substep"><strong>c) Stopwords</strong><br/><small>NLTK + custom (183 palabras)</small></div>
-<div class="pipeline-substep"><strong>d) Cleaning</strong><br/><small>Puntuación, números, tokens &lt;2</small></div>
-<div class="pipeline-substep"><strong>e) Stemming</strong><br/><small>SnowballStemmer (español)</small></div>
 </div>
-<p style="margin-top: 1rem; color: #64748b;"><strong>Ejemplo:</strong> "Por favor, mi computadora no funciona correctamente. Gracias" → <code>"comput funcion correct"</code></p>
+</div>
+</div>
 
-<p><strong>7. Feature Extraction: TF-IDF Vectorization</strong></p>
+<div class="road-step">
+<div class="road-step-number">05</div>
+<div class="road-step-box">
+<div class="road-step-header">🧹 NLP Preprocessing</div>
+<div class="road-step-content">
+<p>Por ticket: Tokenización NLTK → Lowercase → Stopwords removal (183 español + custom) → Puntuación cleaning → Stemming Snowball español</p>
+<p><strong>Ejemplo:</strong> <code>'computadora'→'comput'</code>, <code>'problemas'→'problem'</code></p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">06</div>
+<div class="road-step-box">
+<div class="road-step-header">🔢 TF-IDF Vectorization</div>
+<div class="road-step-content">
+<p><code>max_features=5000</code> + bigrams + <code>min_df=2</code> + <code>max_df=0.8</code> + <code>sublinear_tf</code></p>
+<p><strong>Resultado:</strong> Sparse Matrix (1213, 5000)</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">07</div>
+<div class="road-step-box">
+<div class="road-step-header">🔀 Stratified Split</div>
+<div class="road-step-content">
+<p><strong>80/20:</strong> train=970, test=243, seed=42</p>
+<p>Mantiene proporción de clases en ambos conjuntos</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">08</div>
+<div class="road-step-box">
+<div class="road-step-header">🤖 Train 7 Modelos en Paralelo</div>
+<div class="road-step-content">
+<p>Con Optuna Optimization:</p>
 <ul>
-<li><code>TfidfVectorizer(max_features=5000, ngram_range=(1,2), min_df=2, max_df=0.8, sublinear_tf=True)</code></li>
-<li>Fit en datos de entrenamiento</li>
-<li>Transform: texto → vector [5000 dimensiones]</li>
-<li>Resultado: Matriz sparse (1213, 5000)</li>
-</ul>
-</div>
-</div>
-
-<div class="pipeline-arrow-down">▼</div>
-
-<!-- FASE 3: Train/Test Split -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">🔀 FASE 3: Train/Test Split</div>
-<div class="pipeline-step-content">
-<p><strong>8. Stratified Split</strong></p>
-<ul>
-<li><code>train_test_split(test_size=0.2, stratify=y, random_state=42)</code></li>
-<li>X_train: 970 samples × 5000 features</li>
-<li>X_test: 243 samples × 5000 features</li>
-<li>y_train: 970 labels</li>
-<li>y_test: 243 labels</li>
-</ul>
-
-<p><strong>9. Reproducibilidad Seeds</strong></p>
-<div class="pipeline-substeps">
-<div class="pipeline-substep"><strong>Python</strong><br/><small>random.seed(42)</small></div>
-<div class="pipeline-substep"><strong>NumPy</strong><br/><small>np.random.seed(42)</small></div>
-<div class="pipeline-substep"><strong>Env</strong><br/><small>PYTHONHASHSEED=42</small></div>
-<div class="pipeline-substep"><strong>Sklearn</strong><br/><small>random_state=42</small></div>
-</div>
-</div>
-</div>
-
-<div class="pipeline-arrow-down">▼</div>
-
-<!-- FASE 4: Entrenamiento de 7 Modelos -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">🤖 FASE 4: Entrenamiento de 7 Modelos</div>
-<div class="pipeline-step-content">
-<p><strong>10. Training Loop con Optuna Optimization</strong></p>
-<p>Para CADA uno de los 7 modelos:</p>
-
-<p><strong>Optuna Hyperparameter Search:</strong></p>
-<ul>
-<li>Trials: 10 (en CI/CD) o 20 (local)</li>
-<li>Sampler: TPE (Tree-structured Parzen Estimator)</li>
-<li>Objective: Maximizar F1-score (macro avg)</li>
-<li>Cross Validation: StratifiedKFold (2 folds en CI, 3 en local)</li>
-</ul>
-
-<p><strong>7 Algoritmos evaluados:</strong></p>
-<div class="pipeline-substeps">
-<div class="pipeline-substep"><strong>1. Logistic Regression</strong><br/><small>F1: 0.9712</small></div>
-<div class="pipeline-substep"><strong>2. Random Forest</strong><br/><small>F1: 0.9132</small></div>
-<div class="pipeline-substep"><strong>3. XGBoost</strong><br/><small>F1: 0.9627</small></div>
-<div class="pipeline-substep"><strong>4. SVM</strong><br/><small>F1: 0.9177</small></div>
-<div class="pipeline-substep"><strong>5. LightGBM</strong><br/><small>F1: 0.9670</small></div>
-<div class="pipeline-substep"><strong>6. Gradient Boosting ⭐</strong><br/><small>F1: 0.9835 (WINNER)</small></div>
-<div class="pipeline-substep"><strong>7. Extra Trees</strong><br/><small>F1: 0.9134</small></div>
-</div>
-
-<p style="margin-top: 1rem;"><strong>11. Comparación y Selección del Mejor Modelo</strong></p>
-<p><strong>Gradient Boosting - Configuración ganadora:</strong></p>
-<ul>
-<li>n_estimators: 400</li>
-<li>max_depth: 7</li>
-<li>learning_rate: 0.1</li>
-<li>subsample: 0.9</li>
-</ul>
-<p style="margin-top: 1rem; color: #64748b;"><strong>Métricas del modelo ganador:</strong> F1-score: 0.9835 | Accuracy: 0.9835 | Precision: 0.9838 | Recall: 0.9833</p>
-</div>
-</div>
-
-<div class="pipeline-arrow-down">▼</div>
-
-<!-- FASE 5: Guardado y Versionamiento -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">💾 FASE 5: Guardado y Versionamiento</div>
-<div class="pipeline-step-content">
-<p><strong>12. Serialización del Mejor Modelo</strong></p>
-<ul>
-<li>Crear objeto de pipeline completo: <code>{'vectorizer', 'model', 'label_encoder', 'preprocessing_config'}</code></li>
-<li>Guardar con pickle: <code>models/best_model.pkl</code> (~50 MB)</li>
-<li>Crear backup con timestamp: <code>models/backups/best_model_YYYYMMDD_HHMMSS.pkl</code></li>
-</ul>
-
-<p><strong>13. Guardar Metadata JSON</strong></p>
-<p>Archivo: <code>models/best_model_metadata.json</code></p>
-<ul>
-<li>model_name, f1_score, accuracy, precision, recall</li>
-<li>timestamp, environment, training_samples, test_samples</li>
-<li>hyperparameters, training_config, all_results</li>
-<li>confusion_matrix, classification_report</li>
-</ul>
-
-<p><strong>14. DVC Versionamiento</strong></p>
-<div class="pipeline-substeps">
-<div class="pipeline-substep"><strong>dvc add</strong><br/><small>models/best_model.pkl</small></div>
-<div class="pipeline-substep"><strong>dvc push</strong><br/><small>Sube a S3</small></div>
-<div class="pipeline-substep"><strong>git add</strong><br/><small>models/best_model.pkl.dvc</small></div>
-</div>
-
-<p><strong>15. MLflow Registry</strong></p>
-<ul>
-<li>log_model, log_params, log_metrics</li>
-<li>Guarda en: <code>mlruns/</code> (Experiment ID, Run ID, Artifacts, Metrics, Params)</li>
-<li>Versionado automático: v1, v2, v3...</li>
-</ul>
-</div>
-</div>
-
-<div class="pipeline-arrow-down">▼</div>
-
-<!-- FASE 6: Artifacts Upload -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">📤 FASE 6: Artifacts Upload (GitHub Actions)</div>
-<div class="pipeline-step-content">
-<p><strong>16. Upload Artifacts to GitHub</strong></p>
-<p>Usando <code>actions/upload-artifact@v3</code></p>
-<div class="pipeline-substeps">
-<div class="pipeline-substep"><strong>Artifact 1: trained-model</strong><br/><small>best_model.pkl + metadata.json</small></div>
-<div class="pipeline-substep"><strong>Artifact 2: mlflow-runs</strong><br/><small>mlruns/ (completo)</small></div>
-</div>
-<p style="margin-top: 1rem; color: #64748b;">Retención: 90 días</p>
-</div>
-</div>
-
-<div class="pipeline-arrow-down">▼</div>
-
-<!-- FASE 7: Hot Reload de API -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">🔄 FASE 7: Hot Reload de API</div>
-<div class="pipeline-step-content">
-<p><strong>17. Reload Model en API (sin downtime)</strong></p>
-<ul>
-<li>Endpoint: <code>POST /admin/reload-model</code></li>
-<li>Headers: <code>X-API-Key: $ADMIN_API_KEY</code></li>
-<li>API descarga nuevo modelo: <code>dvc pull models/best_model.pkl</code> desde S3</li>
-<li>Recarga en memoria: <code>model_pipeline = pickle.load(...)</code></li>
-</ul>
-<p style="margin-top: 1rem; color: #64748b;"><strong>Zero downtime:</strong> No reinicia uvicorn. Requests en proceso continúan con modelo anterior. Nuevos requests usan modelo nuevo.</p>
-</div>
-</div>
-
-<div class="pipeline-arrow-down">▼</div>
-
-<!-- FASE 8: Summary Report -->
-<div class="pipeline-step">
-<div class="pipeline-step-header">📊 FASE 8: Summary Report</div>
-<div class="pipeline-step-content">
-<p><strong>18. GitHub Actions Summary</strong></p>
-<p>Genera reporte markdown automático con:</p>
-<ul>
-<li><strong>Best Model Selected:</strong> Algorithm, F1-Score, Accuracy, Training Time</li>
-<li><strong>All Models Performance:</strong> Tabla comparativa con F1-Score, Accuracy, Training Time</li>
-<li><strong>Hyperparameters:</strong> Configuración del modelo ganador</li>
-<li><strong>Confusion Matrix:</strong> Matriz de confusión detallada</li>
-<li><strong>Next Steps:</strong> Model pushed to S3, API reloaded, Ready for production</li>
+<li>Logistic Regression (C, penalty, solver)</li>
+<li>Random Forest (n_estimators, max_depth)</li>
+<li>XGBoost (max_depth, lr, gamma)</li>
+<li>SVM (C, kernel)</li>
+<li>LightGBM (num_leaves, lr)</li>
+<li>Gradient Boosting (n_estimators, max_depth, lr, subsample)</li>
+<li>Extra Trees (n_estimators, max_depth)</li>
 </ul>
 </div>
 </div>
 </div>
-    """, unsafe_allow_html=True)
+
+<div class="road-step">
+<div class="road-step-number">09</div>
+<div class="road-step-box">
+<div class="road-step-header">🔬 Optuna Optimization</div>
+<div class="road-step-content">
+<p><strong>10 trials × 2-fold CV × TPE sampler</strong></p>
+<p>Maximizar F1-score macro</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">10</div>
+<div class="road-step-box">
+<div class="road-step-header">📈 Evaluate All en test set</div>
+<div class="road-step-content">
+<p>Evaluación completa de los 7 modelos</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">11</div>
+<div class="road-step-box">
+<div class="road-step-header">🏆 Gradient Boosting WINS</div>
+<div class="road-step-content">
+<p><strong>F1=0.9835</strong>, accuracy=0.9835</p>
+<p><strong>Hiperparámetros:</strong> n_estimators=400, max_depth=7, lr=0.1, subsample=0.9</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">12</div>
+<div class="road-step-box">
+<div class="road-step-header">💾 Serialize Pipeline completo</div>
+<div class="road-step-content">
+<p>vectorizer fitted + model trained + label_encoder + config</p>
+<p><code>joblib.dump</code> → <code>best_model.pkl</code> (~50MB)</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">13</div>
+<div class="road-step-box">
+<div class="road-step-header">📝 Save Metadata JSON</div>
+<div class="road-step-content">
+<p>Hiperparámetros + métricas + confusion matrix + 7 modelos comparativa + timestamp + environment</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">14</div>
+<div class="road-step-box">
+<div class="road-step-header">📦 DVC Add & Push</div>
+<div class="road-step-content">
+<p>Calcula MD5, genera .dvc pointer → DVC Push a S3 (upload modelo versionado) → Git add solo .dvc file (lightweight)</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">15</div>
+<div class="road-step-box">
+<div class="road-step-header">📊 MLflow Log</div>
+<div class="road-step-content">
+<p>params + metrics + artifacts + model registry version</p>
+<p>Storage: <code>mlruns/</code></p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">16</div>
+<div class="road-step-box">
+<div class="road-step-header">📤 GitHub Artifacts Upload</div>
+<div class="road-step-content">
+<p>trained-model + mlflow-runs + logs</p>
+<p>Retention: 90 días</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">17</div>
+<div class="road-step-box">
+<div class="road-step-header">🔄 Hot Reload API</div>
+<div class="road-step-content">
+<p><code>POST /admin/reload-model</code> → DVC pull nuevo modelo → Load en memoria (atomic swap)</p>
+<p><strong>Zero downtime:</strong> Uvicorn no reinicia, requests continúan</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">18</div>
+<div class="road-step-box">
+<div class="road-step-header">🔔 Notifications</div>
+<div class="road-step-content">
+<p>Slack + Discord + Telegram</p>
+<p>"✅ Gradient Boosting deployed F1=0.9835 +0.5% improvement"</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">19</div>
+<div class="road-step-box">
+<div class="road-step-header">✅ GitHub Summary Report</div>
+<div class="road-step-content">
+<p>Tabla comparativa 7 modelos + confusion matrix + hiperparámetros + NLP pipeline details + deployment status</p>
+</div>
+</div>
+</div>
+
+<div class="road-step">
+<div class="road-step-number">20</div>
+<div class="road-step-box">
+<div class="road-step-header">🎯 Production Model Active</div>
+<div class="road-step-content">
+<p>API + Drift Detection habilitado (cada 6h: KS-test data drift + Chi-square concept drift + Vocab growth + Performance eval)</p>
+<p><strong>Auto-retrain:</strong> Si drift>0.5 o F1 cae>5% → Deploy solo si mejora≥1%</p>
+</div>
+</div>
+</div>
+</div>
+""", unsafe_allow_html=True)
     
     st.markdown("---")
     
