@@ -813,6 +813,24 @@ sistema como solución enterprise-ready para cualquier organización que maneje 
 </div>
     """, unsafe_allow_html=True)
     
+    # Nota sobre procesamiento batch
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); 
+                border: 2px solid #f59e0b; 
+                border-radius: 10px; 
+                padding: 1.25rem; 
+                margin: 1.5rem 0;
+                box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);">
+    <p style="color: #92400e; 
+               font-weight: 600; 
+               margin: 0; 
+               font-size: 1rem;
+               line-height: 1.6;">
+    <strong>📌 NOTA:</strong> El proyecto está diseñado para procesar tickets en batch.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
     
     # Problem vs Solution
 
@@ -951,234 +969,7 @@ operativos en 70-80% — todo mientras se auto-mantiene y mejora continuamente s
     
     st.dataframe(testing_df, use_container_width=True, hide_index=True)
     
-    st.markdown("<h2 style='color: black;'>Distribución de archivos del proyecto</h2>", unsafe_allow_html=True)
     
-    # github
-    st.markdown("""
-<div class="hero-section">
-<div class="hero-cta">
-<a href="https://github.com/giovany-desing/Proyecto_tickets_fiduciaria" target="_blank" class="apple-button">
-Ver Código en GitHub
-</a>
-</div>
-</div>
-    """, unsafe_allow_html=True)
-    
-    # Architecture Diagram
-    st.markdown("""
-    """, unsafe_allow_html=True)
-    
-    st.code("""
-ticket-classifier-mlops/
-  │
-  ├── 📄 README.md                           Documentación principal del proyecto
-  ├── 📄 SETUP.md                            Guía de configuración e instalación
-  ├── 📄 .gitignore                          Archivos excluidos de Git
-  ├── 📄 requirements.txt                    Dependencias Python del proyecto
-  ├── 📄 requirements-lock.txt               Versiones exactas de dependencias
-  ├── 📄 config.yaml                         Configuración centralizada del sistema
-  │                                          (rutas, params ML, thresholds)
-  │
-  ├── 📁 .github/                            ══════════════════════════════════
-  │   └── workflows/                         Automatización CI/CD
-  │       ├── ci_cd_pipeline.yml            Pipeline principal: validate + deploy
-  │       ├── deploy_render.yml             Deploy manual a Render
-  │       ├── train_model.yml               Workflow de entrenamiento automático
-  │       └── monitor_and_retrain.yml       Monitoreo y reentrenamiento scheduled
-  │
-  ├── 📁 api/                                ══════════════════════════════════
-  │   └── inference.py                       API FastAPI principal
-  │                                          • 17 endpoints (predict, monitor, admin)
-  │                                          • Rate limiting con slowapi
-  │                                          • Integración con Supabase
-  │                                          • Hot reload de modelos
-  │                                          • Logging de predicciones
-  │
-  ├── 📁 scripts/                            ══════════════════════════════════
-  │   │                                      Scripts ejecutables del pipeline
-  │   │
-  │   ├── train_model.py                     Entrenamiento multi-modelo
-  │   │                                      • 7 algoritmos (LR, RF, XGB, etc.)
-  │   │                                      • Optimización con Optuna (50 trials)
-  │   │                                      • Evaluación y selección del mejor
-  │   │                                      • Guarda modelo + metadata
-  │   │
-  │   ├── monitor_and_retrain.py             Monitoreo continuo + reentrenamiento
-  │   │                                      • Detecta drift (KS, Chi-square)
-  │   │                                      • Evalúa degradación de performance
-  │   │                                      • Dispara reentrenamiento si necesario
-  │   │                                      • Integra con sistema de notificaciones
-  │   │
-  │   ├── deploy_model.py                    Deploy automatizado
-  │   │                                      • Git commit del nuevo modelo
-  │   │                                      • Git push (dispara CI/CD)
-  │   │                                      • DVC push a S3
-  │   │                                      • Opcional: trigger Render deploy
-  │   │
-  │   └── download_model.py                  Descarga modelo desde S3
-  │                                          • Lee hash de archivo .dvc
-  │                                          • Descarga desde S3 usando boto3
-  │                                          • Usado en startup de API
-  │
-  ├── 📁 utils/                              ══════════════════════════════════
-  │   │                                      Utilidades y módulos compartidos
-  │   │
-  │   ├── preprocessing_data.py              Preprocesamiento de texto (NLP)
-  │   │                                      • Limpieza de texto
-  │   │                                      • Tokenización (NLTK)
-  │   │                                      • Stopwords removal (español)
-  │   │                                      • Stemming (SnowballStemmer)
-  │   │                                      • Carga de configuración
-  │   │
-  │   ├── monitoring.py                      Sistema de monitoreo del modelo
-  │   │                                      • PredictionLogger: log a predictions.jsonl
-  │   │                                      • DriftDetector: KS test, Chi-square
-  │   │                                      • Vocabulary growth analysis
-  │   │                                      • Métricas diarias agregadas
-  │   │
-  │   ├── database.py                        Conexión y operaciones con Supabase
-  │   │                                      • Cliente PostgreSQL (supabase-py)
-  │   │                                      • update_ticket_causa() con retry logic
-  │   │                                      • Exponential backoff (4 reintentos)
-  │   │                                      • Batch updates
-  │   │                                      • Queries de tickets pendientes
-  │   │
-  │   ├── database_example.py                Ejemplos de uso de database.py
-  │   │                                      • Scripts de demostración
-  │   │                                      • Casos de uso comunes
-  │   │
-  │   └── notifications.py                   Sistema de notificaciones
-  │                                          • Slack, Discord, Telegram
-  │                                          • Notifica: training, drift, deploy
-  │                                          • Niveles: INFO, WARNING, ERROR
-  │
-  ├── 📁 models/                             ══════════════════════════════════
-  │   │                                      Modelos entrenados (versionados con DVC)
-  │   │
-  │   ├── best_model.pkl                     Modelo serializado (joblib)
-  │   │                                      Algoritmo con mejor F1-Score
-  │   │
-  │   ├── best_model.pkl.dvc                 Puntero DVC al modelo en S3
-  │   │                                      Contiene hash MD5 único
-  │   │
-  │   ├── best_model_metadata.json           Metadata del modelo actual
-  │   │                                      • model_name: "XGBoost"
-  │   │                                      • f1_score: 0.88
-  │   │                                      • training_date, hyperparameters
-  │   │
-  │   ├── vectorizer.pkl                     TF-IDF vectorizer entrenado
-  │   │                                      5000 features, ngram_range=(1,2)
-  │   │
-  │   ├── label_encoder.pkl                  Encoder de categorías
-  │   │                                      Mapeo: "TI" → 0, "RRHH" → 1, etc.
-  │   │
-  │   └── backups/                           Backups automáticos de modelos
-  │       ├── best_model_backup_*.pkl        Modelo anterior (rollback)
-  │       └── best_model_metadata_backup_*.json  Metadata backup
-  │
-  ├── 📁 data/                               ══════════════════════════════════
-  │   └── raw/                               Datos crudos
-  │       └── tickets.csv                    Dataset de tickets etiquetados
-  │           (versionado con DVC)           Columnas: short_description,
-  │                                          close_notes, etiqueta
-  │
-  ├── 📁 monitoring/                         ══════════════════════════════════
-  │   └── logs/                              Logs de producción
-  │       ├── predictions.jsonl              Log de todas las predicciones
-  │       │                                  • timestamp, text, prediction
-  │       │                                  • probability, true_label
-  │       │                                  • Usado para detectar drift
-  │       │
-  │       └── daily_metrics/                 Métricas agregadas por día
-  │           └── metrics_YYYY-MM-DD.json    • total_predictions
-  │                                          • average_confidence
-  │                                          • distribution por clase
-  │
-  ├── 📁 airflow/                            ══════════════════════════════════
-  │   │                                      Orquestación con Apache Airflow
-  │   │
-  │   ├── docker-compose.yml                 Configuración Docker Compose
-  │   │                                      • Airflow webserver, scheduler
-  │   │                                      • PostgreSQL (metadata)
-  │   │                                      • Redis (Celery executor)
-  │   │
-  │   ├── Dockerfile                         Imagen Docker custom de Airflow
-  │   │                                      Incluye dependencias del proyecto
-  │   │
-  │   ├── requirements.txt                   Dependencias específicas de Airflow
-  │   │
-  │   ├── README.md                          Guía de configuración de Airflow
-  │   │
-  │   ├── test_dag.py                        DAG de prueba/ejemplo
-  │   │
-  │   └── dags/                              Definiciones de DAGs
-  │       │
-  │       ├── mlops_pipeline.py              DAG PRINCIPAL (cada 6 horas)
-  │       │                                  • Monitoring (drift, metrics)
-  │       │                                  • Retraining condicional
-  │       │                                  • Model comparison
-  │       │                                  • Deploy condicional
-  │       │                                  • Hot reload API
-  │       │
-  │       ├── train_model_dag.py             DAG de entrenamiento manual
-  │       │                                  • Pull data from S3
-  │       │                                  • Train model
-  │       │                                  • Push to S3
-  │       │
-  │       └── monitor_only_dag.py            DAG solo monitoreo (cada 1 hora)
-  │                                          • Check drift
-  │                                          • Get metrics
-  │                                          • Save metrics
-  │                                          (sin reentrenamiento)
-  │
-  ├── 📁 notebooks/                          ══════════════════════════════════
-  │   │                                      Jupyter notebooks (EDA, experimentos)
-  │   │
-  │   ├── 01_exploratory_data_analysis.ipynb Análisis exploratorio de datos
-  │   ├── 02_model_experimentation.ipynb     Experimentos con modelos
-  │   └── 03_model_evaluation.ipynb          Evaluación detallada de modelos
-  │
-  ├── 📁 tests/                              ══════════════════════════════════
-  │   │                                      Tests unitarios y de integración
-  │   │
-  │   ├── test_preprocessing.py              Tests de preprocesamiento NLP
-  │   ├── test_monitoring.py                 Tests del sistema de monitoreo
-  │   ├── test_database.py                   Tests de conexión a Supabase
-  │   ├── test_api.py                        Tests de endpoints FastAPI
-  │   └── test_training.py                   Tests del pipeline de training
-  │
-  ├── 📁 .dvc/                               ══════════════════════════════════
-  │   ├── config                             Configuración de DVC
-  │   │                                      • Remote storage: S3
-  │   │                                      • Bucket: ticketsfidudavivienda
-  │   │
-  │   └── cache/                             Cache local de DVC
-  │
-  ├── 📄 .dvcignore                          Archivos excluidos de DVC tracking
-  │
-  ├── 📄 render.yaml                         Configuración de Render.com
-  │                                          • Servicio web Python
-  │                                          • Build command
-  │                                          • Start command: uvicorn
-  │                                          • Environment variables
-  │                                          • Health check: /health
-  │
-  ├── 📄 Procfile                            Configuración para Heroku/Render
-  │                                          web: uvicorn api.inference:app
-  │
-  └── 📄 .env.example                        Template de variables de entorno
-                                             • AWS_ACCESS_KEY_ID
-                                             • AWS_SECRET_ACCESS_KEY
-                                             • SUPABASE_URL
-                                             • SUPABASE_KEY
-                                             • API_KEY, ADMIN_API_KEY
-
-
-    """, language=None)
-    
-    st.markdown("</div>", unsafe_allow_html=True)
-    
-    st.markdown("---")
 
 # ============================================================================
 # TAB 2: PIPELINE DE ENTRENAMIERNO
@@ -2415,86 +2206,89 @@ with tab5:
 with tab6:
     st.markdown("<h2 style='color: black;'>📁 Distribución de Archivos del Proyecto</h2>", unsafe_allow_html=True)
     
+    # Botón para ver repositorio en GitHub
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
-    <p style='color: #1e293b; line-height: 1.7; margin: 0;'>Esta sección muestra la estructura y organización de archivos del proyecto, facilitando la navegación y comprensión del código.</p>
+    <div style="margin: 1.5rem 0; text-align: center;">
+    <a href="https://github.com/giovany-desing/Proyecto_tickets_fiduciaria" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #24292e 0%, #1a1e22 100%); color: white; padding: 0.75rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1.05rem; box-shadow: 0 4px 15px rgba(36, 41, 46, 0.3); transition: transform 0.2s, box-shadow 0.2s;">
+    🔗 Ver repositorio en Github
+    </a>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("""
-    <div style="margin-top: 2rem;">
-    <h3 style='color: #475569; font-size: 1.2rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem;'>Estructura del Proyecto</h3>
-    <div style="background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto; margin: 1rem 0;">
-    <pre style="margin: 0; white-space: pre-wrap;">fiducia_tickets_sorter_app/
-├── app.py                    # Aplicación principal Streamlit
-├── requirements.txt         # Dependencias del proyecto
-├── Dockerfile               # Imagen Docker para producción
-├── Dockerfile.dev           # Imagen Docker para desarrollo
-├── docker-compose.yml       # Orquestación de contenedores
-└── flujo.md                 # Documentación del flujo del sistema</pre>
-    </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="margin-top: 2rem;">
-    <h3 style='color: #475569; font-size: 1.2rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem;'>Descripción de Archivos</h3>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.25rem; margin: 1rem 0;">
-    <div style="color: #1e40af; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem;">📄 app.py</div>
-    <p style='color: #1e293b; line-height: 1.7; margin: 0;'>Aplicación principal desarrollada con Streamlit que contiene toda la interfaz de usuario, documentación del proyecto, visualizaciones de pipelines, información de endpoints y monitoreo con Airflow.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.25rem; margin: 1rem 0;">
-    <div style="color: #1e40af; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem;">📦 requirements.txt</div>
-    <p style='color: #1e293b; line-height: 1.7; margin: 0;'>Archivo que lista todas las dependencias de Python necesarias para ejecutar el proyecto, incluyendo Streamlit, pandas, requests y otras librerías.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.25rem; margin: 1rem 0;">
-    <div style="color: #1e40af; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem;">🐳 Dockerfile</div>
-    <p style='color: #1e293b; line-height: 1.7; margin: 0;'>Configuración para construir la imagen Docker de producción, optimizada para despliegue en entornos productivos.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.25rem; margin: 1rem 0;">
-    <div style="color: #1e40af; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem;">🔧 Dockerfile.dev</div>
-    <p style='color: #1e293b; line-height: 1.7; margin: 0;'>Configuración para construir la imagen Docker de desarrollo, con herramientas adicionales para debugging y desarrollo activo.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.25rem; margin: 1rem 0;">
-    <div style="color: #1e40af; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem;">🐙 docker-compose.yml</div>
-    <p style='color: #1e293b; line-height: 1.7; margin: 0;'>Archivo de orquestación que define los servicios, redes y volúmenes necesarios para ejecutar la aplicación en contenedores Docker.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.25rem; margin: 1rem 0;">
-    <div style="color: #1e40af; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem;">📚 flujo.md</div>
-    <p style='color: #1e293b; line-height: 1.7; margin: 0;'>Documentación detallada del flujo completo del sistema, incluyendo pipelines de entrenamiento, clasificación, y procesos de MLOps.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="margin-top: 2rem;">
-    <h3 style='color: #475569; font-size: 1.2rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem;'>Organización del Código</h3>
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #10b981; border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
-    <p style='color: #065f46; line-height: 1.7; margin: 0; font-weight: 600; margin-bottom: 0.75rem;'>✨ Características de la Estructura:</p>
-    <ul style='color: #047857; line-height: 1.8; margin-left: 1.5rem; margin: 0;'>
-    <li>Estructura simple y clara para facilitar el mantenimiento</li>
-    <li>Separación entre archivos de configuración y código</li>
-    <li>Documentación integrada en el código principal</li>
-    <li>Configuración Docker lista para producción y desarrollo</li>
-    </ul>
-    </div>
-    </div>
-    """, unsafe_allow_html=True)
-
+    st.code("""
+ Proyecto_tickets_fiduciaria/
+  │
+  ├── 📁 api/
+  │   ├── __init__.py                            # Inicialización módulo API
+  │   └── inference.py                           # API REST con endpoints de predicción y autenticación
+  │
+  ├── 📁 scripts/
+  │   ├── train_model.py                         # Entrena 7 modelos ML + Optuna + DVC versionamiento
+  │   ├── monitor_and_retrain.py                 # Drift detection + auto-retrain + hot reload API
+  │   ├── download_model.py                      # Descarga modelos desde S3 via DVC
+  │   └── deploy_model.py                        # Deploy modelo a producción + trigger reload
+  │
+  ├── 📁 utils/
+  │   ├── __init__.py                            # Inicialización módulo utils
+  │   ├── preprocessing_data.py                  # Pipeline NLP: tokenización, stemming, stopwords
+  │   ├── monitoring.py                          # Drift detection (KS-test, Chi², vocab)
+  │   ├── database.py                            # Cliente Supabase: queries, updates, retry logic
+  │   ├── notifications.py                       # Webhooks: Slack, Discord, Telegram
+  │   └── config_schema.py                       # Validación de config.yaml con Pydantic
+  │
+  ├── 📁 airflow/
+  │   ├── 📁 dags/
+  │   │   ├── mlops_pipeline.py                  # DAG principal: monitoring + retrain cada 6h
+  │   │   ├── train_model_dag.py                 # DAG manual: entrenamiento on-demand
+  │   │   └── monitor_only_dag.py                # DAG ligero: solo monitoreo cada 1h
+  │   ├── docker-compose.yml                     # Stack Airflow: webserver, scheduler, postgres
+  │   ├── Dockerfile                             # Imagen custom Airflow + deps proyecto
+  │   ├── requirements.txt                       # Dependencias Airflow + ML stack
+  │   └── README.md                              # Guía setup Airflow local
+  │
+  ├── 📁 models/
+  │   ├── best_model.pkl                         # Modelo en producción (Gradient Boosting)
+  │   ├── best_model.pkl.dvc                     # DVC pointer (hash MD5 + path S3)
+  │   ├── best_model_metadata.json               # Metadata: F1, hiperparámetros, timestamp
+  │   └── 📁 backups/                            # Backups automáticos con timestamp
+  │
+  ├── 📁 data-tickets-train/
+  │   ├── dataset_tickets.csv                    # Dataset entrenamiento: 1,213 tickets
+  │   └── dataset_tickets.csv.dvc                # DVC pointer dataset versionado en S3
+  │
+  ├── 📁 tests/
+  │   ├── conftest.py                            # Fixtures pytest: sample data, mocks
+  │   ├── test_api.py                            # Tests endpoints API + auth + rate limit
+  │   ├── test_preprocessing.py                  # Tests pipeline NLP + edge cases
+  │   ├── test_monitoring.py                     # Tests drift detection + performance eval
+  │   ├── test_database.py                       # Tests Supabase client + retry logic
+  │   └── README.md                              # Guía ejecución tests + coverage
+  │
+  ├── 📁 .github/workflows/
+  │   ├── ci_cd_pipeline.yml                     # Validación + deploy Render + notificaciones
+  │   ├── train_model.yml                        # Entrenamiento automático en push
+  │   ├── monitor_and_retrain.yml                # CRON 6h: drift + auto-retrain
+  │   ├── validate.yml                           # Pre-commit validations + linting
+  │   └── deploy_render.yml                      # Deploy manual directo a Render
+  │
+  ├── 📁 .dvc/
+  │   ├── config                                 # Configuración remote S3
+  │   └── .gitignore                             # Ignora cache DVC local
+  │
+  ├── 📁 monitoring/
+  │   └── 📁 logs/
+  │       └── predictions.jsonl                  # Log predicciones: drift + performance eval
+  │
+  ├── 📄 config.yaml                             # Configuración centralizada: thresholds, paths
+  ├── 📄 render.yaml                             # Config deployment Render.com
+  ├── 📄 requirements.txt                        # Dependencias flexibles (189 paquetes)
+  ├── 📄 requirements-lock.txt                   # Dependencias pinneadas (reproducibilidad)
+  ├── 📄 runtime.txt                             # Versión Python: 3.9.18
+  ├── 📄 pytest.ini                              # Configuración pytest: markers, coverage
+  ├── 📄 setup_supabase_columns.sql              # DDL tabla tickets_fiducia
+  ├── 📄 README.md                               # Documentación principal del proyecto
+  ├── 📄 SETUP.md                                # Guía setup: env vars, AWS, Supabase
+  ├── 📄 .gitignore                              # Archivos ignorados por Git
+  ├── 📄 .dvcignore                              # Archivos ignorados por DVC
+  └── 📄 .python-version                         # Versión Python local (pyenv)
+""", language=None)
